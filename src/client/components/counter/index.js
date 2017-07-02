@@ -18,7 +18,7 @@ class component extends React.Component {
     return (
       <div className={`${style.hello_world}`}>
         <div className={style.stuff}>
-          {this.state.value} : counter
+          {this.state.value} : counter zxc
         </div>
       </div>
     );
