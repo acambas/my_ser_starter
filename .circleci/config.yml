@@ -20,9 +20,9 @@ jobs:
       - image: circleci/node:8
     working_directory: ~/my_ser_starter
      steps:
-      - run:
-          name: Dev deploy
-          command: npm run deploy -- --stage dev
+        - run:
+            name: Dev deploy
+            command: npm run deploy -- --stage dev
 workflows:
   version: 2
   build_accept_deploy:
