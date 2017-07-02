@@ -79,5 +79,3 @@ workflows:
       - deploy-prod:
           requires:
               - deploy-dev
-          branches:
-              only: master
