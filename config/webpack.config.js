@@ -66,7 +66,7 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: {
+            query: {
               postcss: [autoprefixer(), precss()],
               sourceMap: 'inline',
             },
