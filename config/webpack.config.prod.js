@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../', '/public/assets'),
-    publicPath: '/assets/',
+    publicPath: 'assets/',
     filename: '[name].js',
   },
   devtool: 'source-map',

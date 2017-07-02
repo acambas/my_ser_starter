@@ -11,7 +11,7 @@ class Clock extends Component {
 
   componentDidMount() {
     // update time every second
-    axios.get('/api/test').then(res => {
+    axios.get('api/test').then(res => {
       this.setState({ api: res });
     });
   }

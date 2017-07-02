@@ -35,6 +35,7 @@ app.get('/api/test', (req, res) => {
 addIndexMiddleware(app);
 
 //------------------set up error handler------------------------------------
+
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;

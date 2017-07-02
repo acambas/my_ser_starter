@@ -1,10 +1,10 @@
-const webpack = require('webpack');
 const path = require('path');
-const webpackConfig = require('../../../../config/webpack.config');
-const compiler = webpack(webpackConfig);
 
 const addWebpackMiddleware = app => {
   // Step 2: Attach the dev middleware to the compiler & the server
+  const webpack = require('webpack');
+  const webpackConfig = require('../../../../config/webpack.config');
+  const compiler = webpack(webpackConfig);
   app.use(
     require('webpack-dev-middleware')(compiler, {
       // publicPath: webpackConfig.output.publicPath,
@@ -43,6 +43,9 @@ const addWebpackMiddleware = app => {
 
 const addIndexMiddleware = app => {
   if (process.env.NODE_LOCAL) {
+    const webpack = require('webpack');
+    const webpackConfig = require('../../../../config/webpack.config');
+    const compiler = webpack(webpackConfig);
     app.get('*', (req, res, next) => {
       var filename = path.join(compiler.outputPath, 'index.html');
       compiler.outputFileSystem.readFile(filename, function(err, result) {
