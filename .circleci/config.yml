@@ -12,14 +12,18 @@ jobs:
       - run:
           name: Build
           command: npm run build
+      - save_cache:
+          key: v1-repo-{{ checksum ".circle-sha" }}
+          paths:
+            - ~/my_ser_starter
+
   test:
     working_directory: ~/my_ser_starter
     docker:
       - image: circleci/node:8
     steps:
-      - checkout
       - run:
-          name: Test
+          name: list
           command: ls -lh
       - run:
           name: Test
