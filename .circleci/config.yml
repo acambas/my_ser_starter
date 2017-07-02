@@ -17,4 +17,4 @@ jobs:
           command: npm test
       - run:
           name: Dev deploy
-          command: npm deploy -- --stage dev
+          command: npm run deploy -- --stage dev
