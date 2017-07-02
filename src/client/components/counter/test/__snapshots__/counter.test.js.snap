@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link changes the class when hovered 1`] = `
+<div
+  className="hello_world"
+>
+  <div
+    className="stuff"
+  >
+    0
+     : counter zcx sss
+  </div>
+</div>
+`;
