@@ -19,6 +19,9 @@ jobs:
     steps:
       - run:
           name: Test
+          command: ls -lh
+      - run:
+          name: Test
           command: npm test
 workflows:
   version: 2
