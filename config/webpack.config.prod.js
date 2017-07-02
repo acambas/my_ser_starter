@@ -4,7 +4,6 @@ var webpack = require('webpack');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
   entry: {
@@ -33,7 +32,6 @@ module.exports = {
       hash: true,
       template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
     }),
-    new Visualizer(),
   ],
   resolve: {
     alias: {
