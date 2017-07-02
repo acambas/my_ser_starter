@@ -48,20 +48,20 @@ jobs:
       - run:
           name: Dev deploy
           command: npm run deploy -- --stage dev
-  deploy-prod:
-    steps:
-      - run:  
-          name: save SHA to a file
-          command: echo $CIRCLE_SHA1 > .circle-sha
-      - restore_cache:
-          keys:
-            - v1-repo-{{ checksum ".circle-sha" }}
-      - run:
-          name: prod deploy
-          command: npm run deploy -- --stage prod
-      - store_artifacts:
-          path: /.serverless
-          destination: build
+  # deploy-prod:
+  #   steps:
+  #     - run:  
+  #         name: save SHA to a file
+  #         command: echo $CIRCLE_SHA1 > .circle-sha
+  #     - restore_cache:
+  #         keys:
+  #           - v1-repo-{{ checksum ".circle-sha" }}
+  #     - run:
+  #         name: prod deploy
+  #         command: npm run deploy -- --stage prod
+  #     - store_artifacts:
+  #         path: /.serverless
+  #         destination: build
 workflows:
   version: 2
   build_and_test:
@@ -73,8 +73,8 @@ workflows:
       - deploy-dev:
           requires:
               - test
-      - deploy-prod:
-          requires:
-              - deploy-dev
-          branches:
-              only: master
+      # - deploy-prod:
+      #     requires:
+      #         - deploy-dev
+      #     branches:
+      #         only: master
