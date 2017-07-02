@@ -14,8 +14,6 @@ jobs:
           command: npm run build
   test:
     working_directory: ~/my_ser_starter
-    docker:
-      - image: circleci/node:8
     steps:
       - run:
           name: Test
