@@ -1,9 +1,9 @@
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var webpack = require('webpack');
-var precss = require('precss');
-var autoprefixer = require('autoprefixer');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -65,8 +65,7 @@ module.exports = {
               loader: 'css-loader',
               query: {
                 modules: true,
-                context: 'asd',
-                localIdentName: '[path]-[name]-[local]-[hash:base64:5]',
+                localIdentName: '[path]-[name]-[local]',
               },
             },
             {
@@ -79,7 +78,6 @@ module.exports = {
           ],
         }),
       },
-
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,
         loader: 'url-loader?limit=1000',

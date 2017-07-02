@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -25,6 +26,10 @@ module.exports = {
       hash: true,
       template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
     }),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -46,33 +51,32 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-          },
-        ],
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          loader: 'css-loader',
+        }),
       },
       {
         test: /\.pcss$/,
-        loader: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            query: {
-              modules: true,
-              localIdentName: '[path]-[name]-[local]-[hash:base64:5]',
-              context: 'asd',
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          loader: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                localIdentName: '[path]-[name]-[local]',
+              },
             },
-          },
-          {
-            loader: 'postcss-loader',
-            query: {
-              postcss: [autoprefixer(), precss()],
-              sourceMap: 'inline',
+            {
+              loader: 'postcss-loader',
+              query: {
+                sourceMap: 'inline',
+                plugins: () => [autoprefixer(), precss()],
+              },
             },
-          },
-        ],
+          ],
+        }),
       },
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,
