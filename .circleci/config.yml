@@ -25,6 +25,6 @@ workflows:
   build_accept_deploy:
     jobs:
       - build
-    - deploy:
+      - deploy:
           requires:
             - build
