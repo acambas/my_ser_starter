@@ -30,6 +30,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'My App',
       filename: '../index.html',
+      hash: true,
       template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
     }),
     new Visualizer(),

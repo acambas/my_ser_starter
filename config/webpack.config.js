@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/public/assets'),
-    publicPath: '/assets/',
+    publicPath: 'assets/',
     filename: '[name].js',
   },
   devtool: 'cheap-module-eval-source-map',
@@ -22,6 +22,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'My App',
       filename: 'index.html',
+      hash: true,
       template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
     }),
   ],
@@ -66,7 +67,7 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: {
+            query: {
               postcss: [autoprefixer(), precss()],
               sourceMap: 'inline',
             },

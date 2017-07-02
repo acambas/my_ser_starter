@@ -1,0 +1,35 @@
+service: my-ser-starter # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+#package:
+include:
+  - public/**
+  - src/**
+  # - include-me-dir/**
+exclude:
+  - node_modules/**
+#   - exclude-me-dir/**
+
+functions:
+  # test:
+  #   handler: handler.hello
+  #   events:
+  #     - http:
+  #         path: hello
+  #         method: get
+  api:
+    handler: handler.handler
+    events:
+      - http: ANY {proxy+}
