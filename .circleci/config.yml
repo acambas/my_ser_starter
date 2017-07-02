@@ -15,19 +15,6 @@ jobs:
       - run:
           name: Test
           command: npm test
-  deploy:
-    docker:
-      - image: circleci/node:8
-    working_directory: ~/my_ser_starter
-     steps:
-        - run:
-            name: Dev deploy
-            command: npm run deploy -- --stage dev
-workflows:
-  version: 2
-  build_accept_deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - run:
+          name: Dev deploy
+          command: npm run deploy -- --stage dev
