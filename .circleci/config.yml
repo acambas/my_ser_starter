@@ -12,6 +12,9 @@ jobs:
       - run:
           name: Build
           command: npm run build
+      - run:
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
       - save_cache:
           key: v1-repo-{{ checksum ".circle-sha" }}
           paths:
@@ -22,6 +25,12 @@ jobs:
     docker:
       - image: circleci/node:8
     steps:
+      - run:  
+          name: save SHA to a file
+          command: echo $CIRCLE_SHA1 > .circle-sha
+      - restore_cache:
+          keys:
+            - v1-repo-{{ checksum ".circle-sha" }}
       - run:
           name: list
           command: ls -lh
