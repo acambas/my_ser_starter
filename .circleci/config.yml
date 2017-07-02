@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:8
-    working_directory: ~/my_react_starter
+    working_directory: ~/my_ser_starter
     steps:
       - checkout
       - run:
