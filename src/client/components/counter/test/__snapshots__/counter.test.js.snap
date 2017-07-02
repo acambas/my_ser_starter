@@ -8,7 +8,7 @@ exports[`Link changes the class when hovered 1`] = `
     className="stuff"
   >
     0
-     : counter zcx sss
+     : counter
   </div>
 </div>
 `;
