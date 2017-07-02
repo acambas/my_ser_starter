@@ -14,6 +14,8 @@ jobs:
           command: npm run build
   test:
     working_directory: ~/my_ser_starter
+    machine:
+        enabled: true
     steps:
       - run:
           name: Test
