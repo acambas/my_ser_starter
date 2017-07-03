@@ -32,7 +32,7 @@ functions:
   api:
     handler: handler.handler
     events:
-      - http: ANY {proxy+}
       - http:
           path: /
           method: get
+      - http: ANY {proxy+}
