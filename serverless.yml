@@ -33,3 +33,4 @@ functions:
     handler: handler.handler
     events:
       - http: ANY {proxy+}
+      - http: /
