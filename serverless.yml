@@ -34,5 +34,5 @@ functions:
     events:
       - http: ANY {proxy+}
       - http:
-          path: hello
+          path: /
           method: get
