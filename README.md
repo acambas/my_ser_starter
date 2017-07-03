@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/acambas/my_ser_starter.svg?style=svg)](https://circleci.com/gh/acambas/my_ser_starter)
 
 #My starter react-webpack package
 
