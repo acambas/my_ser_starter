@@ -1,4 +1,5 @@
 const path = require('path');
+const winston = require('winston');
 
 const addWebpackMiddleware = app => {
   // Step 2: Attach the dev middleware to the compiler & the server
@@ -28,7 +29,7 @@ const addWebpackMiddleware = app => {
     })
   );
 
-  app.get('/', (req, res, next) => {
+  app.get('*', (req, res, next) => {
     var filename = path.join(compiler.outputPath, 'index.html');
     compiler.outputFileSystem.readFile(filename, function(err, result) {
       if (err) {
@@ -41,30 +42,6 @@ const addWebpackMiddleware = app => {
   });
 };
 
-const addIndexMiddleware = app => {
-  if (process.env.NODE_LOCAL) {
-    const webpack = require('webpack');
-    const webpackConfig = require('../../../../config/webpack.config');
-    const compiler = webpack(webpackConfig);
-    app.get('*', (req, res, next) => {
-      var filename = path.join(compiler.outputPath, 'index.html');
-      compiler.outputFileSystem.readFile(filename, function(err, result) {
-        if (err) {
-          return next(err);
-        }
-        res.set('content-type', 'text/html');
-        res.send(result);
-        res.end();
-      });
-    });
-  } else {
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../../../../public/index.html'));
-    });
-  }
-};
-
 module.exports = {
   addWebpackMiddleware,
-  addIndexMiddleware,
 };

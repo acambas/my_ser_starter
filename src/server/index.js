@@ -4,23 +4,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const winston = require('winston');
-const {
-  addWebpackMiddleware,
-  addIndexMiddleware,
-} = require('./utils/webpackRoutes');
+const { addWebpackMiddleware } = require('./utils/webpackRoutes');
 
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './server/views');
 
-if (process.env.NODE_LOCAL) {
-  winston.cli();
-  winston.info('stuff is on');
-  addWebpackMiddleware(app);
-}
+winston.cli();
 
 //------------------set up middleware------------------------------------
-app.use('/', express.static(path.join(__dirname, '../../public')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -32,7 +25,15 @@ app.get('/api/test', (req, res) => {
 
 //------------------set up page routes------------------------------------
 
-addIndexMiddleware(app);
+if (process.env.NODE_LOCAL) {
+  addWebpackMiddleware(app);
+} else {
+  app.use('/', express.static(path.join(__dirname, '../../public')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../../../public/index.html'));
+  });
+}
+// addIndexMiddleware(app);
 
 //------------------set up error handler------------------------------------
 
