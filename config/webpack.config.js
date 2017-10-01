@@ -1,9 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const precss = require('precss');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -26,10 +23,10 @@ module.exports = {
       hash: true,
       template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
     }),
-    new ExtractTextPlugin({
-      filename: 'styles.css',
-      allChunks: true,
-    }),
+    // new ExtractTextPlugin({
+    //   filename: 'styles.css',
+    //   allChunks: true,
+    // }),
   ],
   resolve: {
     // alias: {
@@ -51,32 +48,37 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader',
-        }),
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+        ],
       },
       {
-        test: /\.pcss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[path]-[name]-[local]',
-              },
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 2,
+              localIdentName: '[path]-[name]-[local]',
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: 'inline',
-                plugins: () => [autoprefixer(), precss()],
-              },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['absolute/path/a', 'absolute/path/b'],
             },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,

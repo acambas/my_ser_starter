@@ -57,24 +57,21 @@ module.exports = {
         }),
       },
       {
-        test: /\.pcss$/,
+        test: /\.scss$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
-              options: {
+              query: {
                 modules: true,
+                sourceMap: true,
+                importLoaders: 2,
                 localIdentName: '[path]-[name]-[local]',
               },
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: 'inline',
-                plugins: () => [autoprefixer(), precss()],
-              },
-            },
+            'sass-loader',
           ],
         }),
       },

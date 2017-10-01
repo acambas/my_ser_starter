@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './style.pcss';
+import style from './style.scss';
 
 class component extends React.Component {
   constructor(props) {
