@@ -4,8 +4,7 @@
 
 ##Using
 - clone the repo
-- install yarn `npm install -g yarn`
-- go inside the folder and run `yarn`
+- go inside the folder and run `npm install`
 
 ##Develop
 - to start dev server run `npm start`
