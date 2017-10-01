@@ -16,7 +16,6 @@ import ReactDOMServer from 'react-dom/server';
 const app = express();
 
 winston.cli();
-
 //------------------set up middleware------------------------------------
 
 app.use(bodyParser.json());
@@ -36,8 +35,9 @@ if (process.env.NODE_ENV === 'server') {
   app.use('/', express.static(path.join(__dirname, '../../public')));
 }
 app.get('*', (req, res) => {
+  const context = {};
   const innerHtml = ReactDOMServer.renderToString(
-    <Router location={req.url} context={{}}>
+    <Router location={req.url} context={context}>
       <App />
     </Router>
   );
@@ -56,7 +56,16 @@ app.get('*', (req, res) => {
     </body>
     <script type="text/javascript" src="assets/bundle.js"></script>
   </html>`;
-  res.send(indexHtml);
+
+  if (context.url) {
+    res.writeHead(301, {
+      Location: context.url,
+    });
+    res.end();
+  } else {
+    res.write(indexHtml);
+    res.end();
+  }
 });
 
 //------------------set up error handler------------------------------------
