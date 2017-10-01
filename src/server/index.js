@@ -1,4 +1,5 @@
-import csshook from 'css-modules-require-hook/preset'
+import 'css-modules-require-hook/preset';
+
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -6,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const winston = require('winston');
 const { addWebpackMiddleware } = require('./utils/webpackRoutes');
-
 
 import App from '../client/pages/App';
 import React from 'react';
