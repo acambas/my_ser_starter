@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -17,25 +17,11 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'My App',
-      filename: 'index.html',
-      hash: true,
-      template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true,
     }),
-    // new ExtractTextPlugin({
-    //   filename: 'styles.css',
-    //   allChunks: true,
-    // }),
   ],
-  resolve: {
-    // alias: {
-    //   // react: 'preact-compat',
-    //   // 'react-dom': 'preact-compat',
-    //   // Not necessary unless you consume a module using `createClass`
-    //   // 'create-react-class': 'preact-compat/lib/create-react-class',
-    // },
-  },
   module: {
     loaders: [
       {
@@ -48,37 +34,29 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            query: {
-              modules: true,
-              sourceMap: true,
-              importLoaders: 2,
-              localIdentName: '[path]-[name]-[local]',
+        exclude: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              query: {
+                modules: true,
+                sourceMap: true,
+                importLoaders: 2,
+                localIdentName: '[path]-[name]-[local]',
+              },
             },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              includePaths: ['absolute/path/a', 'absolute/path/b'],
-            },
-          },
-        ],
+            'sass-loader',
+          ],
+        }),
       },
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,

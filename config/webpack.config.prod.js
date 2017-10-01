@@ -1,9 +1,6 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
-const precss = require('precss');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -26,12 +23,12 @@ module.exports = {
       filename: 'styles.css',
       allChunks: true,
     }),
-    new HtmlWebpackPlugin({
-      title: 'My App',
-      filename: '../index.html',
-      hash: true,
-      template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: 'My App',
+    //   filename: '../index.html',
+    //   hash: true,
+    //   template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
+    // }),
   ],
   resolve: {
     alias: {

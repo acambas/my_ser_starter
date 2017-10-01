@@ -1,3 +1,4 @@
+import csshook from 'css-modules-require-hook/preset'
 const http = require('http');
 const express = require('express');
 const path = require('path');
@@ -6,9 +7,13 @@ const bodyParser = require('body-parser');
 const winston = require('winston');
 const { addWebpackMiddleware } = require('./utils/webpackRoutes');
 
+
+import App from '../client/pages/App';
+import React from 'react';
+import { StaticRouter as Router } from 'react-router-dom';
+import ReactDOMServer from 'react-dom/server';
+
 const app = express();
-app.set('view engine', 'ejs');
-app.set('views', './server/views');
 
 winston.cli();
 
@@ -25,14 +30,34 @@ app.get('/api/test', (req, res) => {
 
 //------------------set up page routes------------------------------------
 
-if (process.env.NODE_LOCAL) {
+if (process.env.NODE_ENV === 'server') {
   addWebpackMiddleware(app);
 } else {
   app.use('/', express.static(path.join(__dirname, '../../public')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/index.html'));
-  });
 }
+app.get('*', (req, res) => {
+  const innerHtml = ReactDOMServer.renderToString(
+    <Router location={req.url} context={{}}>
+      <App />
+    </Router>
+  );
+
+  const indexHtml = `<!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+      <title>react starter</title>
+      <link href="assets/styles.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+      <div id="app">
+      ${innerHtml}
+      </div>
+    </body>
+    <script type="text/javascript" src="assets/bundle.js"></script>
+  </html>`;
+  res.send(indexHtml);
+});
 
 //------------------set up error handler------------------------------------
 
