@@ -1,8 +1,7 @@
 import React from 'react';
-import { Component } from 'preact';
 import axios from 'axios';
 
-class Clock extends Component {
+class Clock extends React.Component {
   constructor() {
     super();
     // set initial time:
@@ -16,7 +15,8 @@ class Clock extends Component {
     });
   }
 
-  render(props, state) {
+  render() {
+    const state = this.state;
     return (
       <span>
         {state.api ? JSON.stringify(state.api.data) : 'no response yet'}

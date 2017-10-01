@@ -33,7 +33,6 @@ if (process.env.NODE_LOCAL) {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
   });
 }
-// addIndexMiddleware(app);
 
 //------------------set up error handler------------------------------------
 

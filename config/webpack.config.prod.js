@@ -35,42 +35,42 @@ module.exports = {
   ],
   resolve: {
     alias: {
-      react: 'preact-compat',
-      'react-dom': 'preact-compat',
+      // react: 'preact-compat',
+      // 'react-dom': 'preact-compat',
       // Not necessary unless you consume a module using `createClass`
-      'create-react-class': 'preact-compat/lib/create-react-class',
+      // 'create-react-class': 'preact-compat/lib/create-react-class',
     },
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         // include: path.join(__dirname, 'client'),
         exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          loader: 'css-loader',
+          use: 'css-loader',
         }),
       },
       {
         test: /\.pcss$/,
-        loader: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          loader: [
+          use: [
             {
               loader: 'css-loader',
-              query: {
+              options: {
                 modules: true,
                 localIdentName: '[path]-[name]-[local]',
               },
             },
             {
               loader: 'postcss-loader',
-              query: {
+              options: {
                 sourceMap: 'inline',
                 plugins: () => [autoprefixer(), precss()],
               },
@@ -80,9 +80,12 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,
-        loader: 'url-loader?limit=1000',
+        loader: 'url-loader',
+        options: {
+          limit: 1000,
+        },
       },
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader' },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' },
     ],
   },
 };

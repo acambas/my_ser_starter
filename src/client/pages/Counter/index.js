@@ -1,9 +1,10 @@
 import React from 'react';
 import Counter from '../../components/counter';
 
-const CounterPage = () =>
+const CounterPage = () => (
   <div>
     <Counter />
-  </div>;
+  </div>
+);
 
 export default CounterPage;

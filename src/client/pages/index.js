@@ -17,7 +17,7 @@ const extractBaseName = pathname => {
 
 const basename = extractBaseName(window.location.pathname);
 
-const RouteList = () =>
+const RouteList = () => (
   <Router basename={basename}>
     <div className="DefaultLayout">
       <ul>
@@ -33,6 +33,7 @@ const RouteList = () =>
       </ul>
       <Routes />
     </div>
-  </Router>;
+  </Router>
+);
 
 export default RouteList;
