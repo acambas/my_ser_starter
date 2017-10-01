@@ -10,6 +10,7 @@
     "lint": "eslint src",
     "simulate-prod": "npm run build&&npm run prod",
     "prod": "node src/server",
+    "package": "sls package",
     "deploy": "sls deploy"
   },
   "author": "",
