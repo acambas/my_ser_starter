@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm install
+          command: npm install && npm rebuild node-sass
       - run:
           name: Build
           command: npm run build
