@@ -63,8 +63,9 @@ app.get('*', (req, res) => {
     });
     res.end();
   } else {
-    // res.write(indexHtml);
-    res.send(indexHtml);
+    res.setHeader('Content-Type', 'text/html');
+    res.write(indexHtml);
+    res.end();
   }
 });
 
