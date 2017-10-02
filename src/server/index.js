@@ -63,8 +63,8 @@ app.get('*', (req, res) => {
     });
     res.end();
   } else {
-    res.write(indexHtml);
-    res.end();
+    // res.write(indexHtml);
+    res.send(indexHtml);
   }
 });
 
