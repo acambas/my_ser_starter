@@ -12,7 +12,6 @@ import App from '../client/pages/App';
 import React from 'react';
 import { StaticRouter as Router } from 'react-router-dom';
 import ReactDOMServer from 'react-dom/server';
-import zlib from 'zlib';
 
 const app = express();
 
@@ -26,28 +25,6 @@ app.use(cookieParser());
 
 app.get('/api/test', (req, res) => {
   res.json({ value: 'ok' });
-});
-
-app.get('/api/gzip1', (req, res) => {
-  res.setHeader('Content-Encoding', 'gzip');
-  res.setHeader('Content-Type', 'application/json');
-  res.json({ value: 'ok' });
-});
-
-app.get('/api/gzip2', (req, res) => {
-  const stuff = JSON.stringify({ test: 'asd' });
-  var resp = zlib.gzipSync(stuff);
-  res.setHeader('Content-Encoding', 'gzip');
-  res.setHeader('Content-Type', 'application/json');
-  res.json(resp.toString('base64'));
-});
-
-app.get('/api/gzip3', (req, res) => {
-  const stuff = JSON.stringify({ test: 'asd' });
-  var resp = zlib.gzipSync(stuff);
-  res.setHeader('Content-Encoding', 'gzip');
-  res.setHeader('Content-Type', 'application/json');
-  res.send(resp);
 });
 
 //------------------set up page routes------------------------------------
