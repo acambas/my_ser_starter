@@ -5,7 +5,7 @@ import App from './App';
 const extractBaseName = pathname => {
   if (pathname.includes('/dev/')) {
     return '/dev';
-  } else if (pathname.includes('/production/')) {
+  } else if (pathname.includes('/prod/')) {
     return '/prod';
   }
   return '/';
