@@ -2,6 +2,8 @@
 
 #My starter react-webpack package
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/acambas/my_ser_starter.svg)](https://greenkeeper.io/)
+
 ##Using
 - clone the repo
 - go inside the folder and run `npm install`
