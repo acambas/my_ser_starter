@@ -9,14 +9,6 @@ provider:
 #  stage: dev
 #  region: us-east-1
 
-plugins:
-  - serverless-apigw-binary
-
-custom:
-  apigwBinary:
-    types:
-      - '*/*'
-
 # you can define service wide environment variables here
 environment:
   variable1: ${opt:stage}
@@ -38,3 +30,6 @@ functions:
     handler: build/handler.express
     events:
       - http: ANY {proxy+}
+      - http:
+          path: /
+          method: get
