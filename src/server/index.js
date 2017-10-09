@@ -1,29 +1,38 @@
 import 'css-modules-require-hook/preset';
-
-const http = require('http');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const winston = require('winston');
-const { addWebpackMiddleware } = require('./utils/webpackRoutes');
-
-import App from '../client/pages/App';
-import React from 'react';
-import { StaticRouter as Router } from 'react-router-dom';
-import ReactDOMServer from 'react-dom/server';
+import http from 'http';
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import winston from 'winston';
+import expressWinston from 'express-winston';
+import addWebpackMiddleware from './utils/webpackRoutes';
+import renderHtml from './renderHtml';
+import { delay } from '../utils/awaiting';
 
 const app = express();
 
-winston.cli();
 //------------------set up middleware------------------------------------
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(
+  expressWinston.logger({
+    transports: [
+      new winston.transports.Console({
+        json: true,
+        colorize: true,
+      }),
+    ],
+    meta: true,
+    msg: 'HTTP {{req.method}} {{req.url}}',
+    expressFormat: true,
+    colorize: true,
+  })
+);
 //------------------set up api routes------------------------------------
 
-app.get('/api/test', (req, res) => {
+app.get('/api/test', async (req, res) => {
+  await delay(100);
   res.json({ value: 'ok' });
 });
 
@@ -36,26 +45,7 @@ if (process.env.NODE_ENV === 'server') {
 }
 app.get('*', (req, res) => {
   const context = {};
-  const innerHtml = ReactDOMServer.renderToString(
-    <Router location={req.url} context={context}>
-      <App />
-    </Router>
-  );
-
-  const indexHtml = `<!DOCTYPE html>
-  <html>
-    <head>
-      <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-      <title>react starter</title>
-      <link href="assets/styles.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-      <div id="app">
-      ${innerHtml}
-      </div>
-    </body>
-    <script type="text/javascript" src="assets/bundle.js"></script>
-  </html>`;
+  const innerHtml = renderHtml(req.url, context);
 
   if (context.url) {
     res.writeHead(301, {
@@ -64,7 +54,7 @@ app.get('*', (req, res) => {
     res.end();
   } else {
     res.setHeader('Content-Type', 'text/html');
-    res.write(indexHtml);
+    res.write(innerHtml);
     res.end();
   }
 });
@@ -77,13 +67,10 @@ app.use((req, res, next) => {
   next(err);
 });
 
-app.use((err, req, res) => {
+app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.json({
     message: err.message,
-    error: {
-      sasa: 'test',
-    },
   });
 });
 

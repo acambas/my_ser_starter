@@ -26,12 +26,6 @@ package:
   # excludeDevDependencies: false
 
 functions:
-  gzip:
-    handler: build/handler.gzip
-    events:
-      - http:
-          path: gzip
-          method: get
   api:
     handler: build/handler.express
     events:

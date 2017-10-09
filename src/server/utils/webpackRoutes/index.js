@@ -1,4 +1,4 @@
-const addWebpackMiddleware = app => {
+export default app => {
   // Step 2: Attach the dev middleware to the compiler & the server
   const webpack = require('webpack');
   const webpackConfig = require('../../../../config/webpack.config');
@@ -25,8 +25,4 @@ const addWebpackMiddleware = app => {
       heartbeat: 10 * 1000,
     })
   );
-};
-
-module.exports = {
-  addWebpackMiddleware,
 };
