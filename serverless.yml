@@ -9,6 +9,14 @@ provider:
 #  stage: dev
 #  region: us-east-1
 
+plugins:
+  - serverless-apigw-binary
+
+custom:
+  apigwBinary:
+    types:
+      - '*/*'
+
 # you can define service wide environment variables here
 environment:
   variable1: ${opt:stage}
