@@ -1,5 +1,7 @@
 import React from 'react';
 import style from './style.scss';
+import webpackImageUrl from '../../img/webpack.png';
+
 class component extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,8 @@ class component extends React.Component {
 
   render() {
     return (
-      <div className={`${style.hello_world}`}>
+      <div className={`${style.hello_world} blue`}>
+        <img src={webpackImageUrl} />
         <div className={style.stuff}>{this.state.value} : counter qwe</div>
       </div>
     );
