@@ -2,8 +2,11 @@
 
 exports[`Link changes the class when hovered 1`] = `
 <div
-  className="hello_world"
+  className="hello_world blue"
 >
+  <img
+    src="test-file-stub"
+  />
   <div
     className="stuff"
   >
