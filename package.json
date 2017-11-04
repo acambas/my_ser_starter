@@ -86,7 +86,7 @@
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.1.1",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.75.0",
+    "semantic-ui-react": "^0.76.0",
     "winston": "^2.4.0",
     "zlib": "^1.0.5"
   },
