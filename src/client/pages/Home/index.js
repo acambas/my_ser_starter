@@ -1,5 +1,4 @@
 import React from 'react';
-import webpackImgUrl from '../../img/webpack.png';
 
 const Home = () => (
   <div>
