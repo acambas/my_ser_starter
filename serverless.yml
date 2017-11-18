@@ -33,3 +33,12 @@ functions:
       - http:
           path: /
           method: get
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+          Type: AWS::ApiGateway::RestApi
+          Properties:
+            Name: ${opt:stage}-${self:service}
+            BinaryMediaTypes:
+              - "*~1*"

@@ -17,7 +17,7 @@ class component extends React.Component {
 
   render() {
     return (
-      <div className={`${style.hello_world} blue`}>
+      <div className={`${style.hello_world}`}>
         <img src={webpackImageUrl} />
         <div className={style.stuff}>{this.state.value} : counter qwe</div>
       </div>
