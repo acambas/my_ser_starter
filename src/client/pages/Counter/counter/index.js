@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './style.scss';
-import webpackImageUrl from '../../img/webpack.png';
+import webpackImageUrl from './img/webpack.png';
 
 class component extends React.Component {
   constructor(props) {
