@@ -1,4 +1,3 @@
-import 'css-modules-require-hook/preset';
 import http from 'http';
 import express from 'express';
 import path from 'path';
