@@ -7,14 +7,14 @@ import expressWinston from 'express-winston';
 import addWebpackMiddleware from './utils/webpackRoutes';
 import renderHtml from './renderHtml';
 import { delay } from '../utils/awaiting';
+import compression from 'compression';
 
 const app = express();
 
 //------------------set up middleware------------------------------------
-
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
 if (process.env.NODE_ENV === 'development') {
   addWebpackMiddleware(app);
 } else {
