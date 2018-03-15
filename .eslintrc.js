@@ -7,7 +7,6 @@ module.exports = {
     }
   },
   rules: {
-    semi: 2,
     "no-console": "off",
     "react/prop-types": "off",
     camelcase: 0,
@@ -15,10 +14,11 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        singleQuote: true,
         jsxBracketSameLine: true,
-        trailingComma: "es5",
-        printWidth: 80
+        trailingComma: "all",
+        printWidth: 80,
+        singleQuote: true,
+        semi: false
       }
     ]
   },

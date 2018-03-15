@@ -19,7 +19,7 @@ export {
   throwRejections as throw,
   swallowRejections as swallow,
   ErrorList,
-};
+}
 
 /**
  * Iterable Error type
@@ -50,31 +50,31 @@ export {
  * }
  */
 function ErrorList(message) {
-  this.name = 'ErrorList';
-  this.message = message;
-  this.stack = new Error().stack;
-  this.errors = [];
+  this.name = 'ErrorList'
+  this.message = message
+  this.stack = new Error().stack
+  this.errors = []
   Object.defineProperty(this, 'length', {
     get: function() {
-      return this.errors.length;
+      return this.errors.length
     },
-  });
+  })
 }
-ErrorList.prototype = Object.create(Error.prototype);
-ErrorList.prototype.constructor = ErrorList;
+ErrorList.prototype = Object.create(Error.prototype)
+ErrorList.prototype.constructor = ErrorList
 ErrorList.prototype.add = function(err) {
-  this.errors.push(err);
-};
+  this.errors.push(err)
+}
 ErrorList.prototype.get = function(index) {
-  return this.errors[index];
-};
+  return this.errors[index]
+}
 ErrorList.prototype[Symbol.iterator] = function*() {
-  let i = 0;
+  let i = 0
   while (i < this.errors.length) {
-    yield this.errors[i];
-    i++;
+    yield this.errors[i]
+    i++
   }
-};
+}
 
 /**
  * Waits for `ms` milliseconds to pass.
@@ -89,7 +89,7 @@ ErrorList.prototype[Symbol.iterator] = function*() {
  * // => 5000
  */
 async function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 /**
@@ -104,8 +104,8 @@ async function delay(ms) {
  * // => this will run until the end of 2017
  */
 async function time(date) {
-  const delta = Math.max(date.getTime() - Date.now(), 0);
-  return await delay(delta);
+  const delta = Math.max(date.getTime() - Date.now(), 0)
+  return await delay(delta)
 }
 
 /**
@@ -123,32 +123,32 @@ async function time(date) {
  */
 async function limit(goal, limiter) {
   return new Promise((resolve, reject) => {
-    const limitFn = typeof limiter === 'number' ? delay(limiter) : limiter;
-    let completed = false;
+    const limitFn = typeof limiter === 'number' ? delay(limiter) : limiter
+    let completed = false
     goal
       .then(result => {
-        if (complete()) return;
-        resolve(result);
+        if (complete()) return
+        resolve(result)
       })
       .catch(err => {
-        if (complete()) return;
-        reject(err);
-      });
+        if (complete()) return
+        reject(err)
+      })
     limitFn
       .then(() => {
-        if (complete()) return;
-        reject(new Error('limit exceeded'));
+        if (complete()) return
+        reject(new Error('limit exceeded'))
       })
       .catch(err => {
-        if (complete()) return;
-        reject(err);
-      });
+        if (complete()) return
+        reject(err)
+      })
     function complete() {
-      if (completed) return true;
-      completed = true;
-      return false;
+      if (completed) return true
+      completed = true
+      return false
     }
-  });
+  })
 }
 
 /**
@@ -164,9 +164,9 @@ async function limit(goal, limiter) {
 async function event(emitter, eventName) {
   return new Promise(resolve => {
     emitter.once(eventName, (...args) => {
-      resolve([...args]);
-    });
-  });
+      resolve([...args])
+    })
+  })
 }
 
 /**
@@ -185,10 +185,10 @@ async function event(emitter, eventName) {
 async function callback(fn, ...args) {
   return new Promise((resolve, reject) => {
     fn(...args, (err, result) => {
-      if (err) return reject(err);
-      resolve(result);
-    });
-  });
+      if (err) return reject(err)
+      resolve(result)
+    })
+  })
 }
 
 /**
@@ -205,11 +205,11 @@ async function callback(fn, ...args) {
  * const contents = await readFile('foo.txt', 'utf-8')
  */
 function awaited(fn) {
-  return async (...args) => callback(fn, ...args);
+  return async (...args) => callback(fn, ...args)
 }
 
 function throwOnRejection(err) {
-  throw err;
+  throw err
 }
 function swallowOnRejection (err, promise) {} // eslint-disable-line
 
@@ -224,8 +224,8 @@ function swallowOnRejection (err, promise) {} // eslint-disable-line
  * const file = await a.single([ fetch(remoteFile), read(localFile) ])
  */
 async function single(list, ignore = 0) {
-  const results = await set(list, 1, ignore);
-  return results[0];
+  const results = await set(list, 1, ignore)
+  return results[0]
 }
 
 /**
@@ -248,27 +248,27 @@ async function single(list, ignore = 0) {
 
 async function set(list, count = Infinity, ignore = 0) {
   return new Promise((resolve, reject) => {
-    const goal = Math.min(list.length, count);
-    const limit = Math.min(list.length - goal, ignore);
-    const results = [];
-    const failures = new ErrorList('too many failures');
-    list.forEach(promise => promise.then(success).catch(error));
+    const goal = Math.min(list.length, count)
+    const limit = Math.min(list.length - goal, ignore)
+    const results = []
+    const failures = new ErrorList('too many failures')
+    list.forEach(promise => promise.then(success).catch(error))
 
     function success(result) {
-      if (failures.length > limit) return;
-      results.push(result);
+      if (failures.length > limit) return
+      results.push(result)
       if (results.length === goal) {
-        resolve(results);
+        resolve(results)
       }
     }
     function error(err) {
-      if (failures.length > limit) return;
-      if (results.length >= goal) return;
-      failures.add(err);
+      if (failures.length > limit) return
+      if (results.length >= goal) return
+      failures.add(err)
       // TODO: reject with an Iterable custom Error that includes all failures
-      if (failures.length > limit) reject(failures);
+      if (failures.length > limit) reject(failures)
     }
-  });
+  })
 }
 
 /**
@@ -287,31 +287,31 @@ async function set(list, count = Infinity, ignore = 0) {
  */
 async function list(list, ignore = 0) {
   return new Promise((resolve, reject) => {
-    const results = [];
-    const failures = new ErrorList('too many failures');
-    const complete = () => count + failures.length === list.length;
-    let count = 0;
+    const results = []
+    const failures = new ErrorList('too many failures')
+    const complete = () => count + failures.length === list.length
+    let count = 0
     list.forEach((promise, index) => {
-      promise.then(success).catch(error);
+      promise.then(success).catch(error)
 
       function success(result) {
-        if (failures.length > ignore) return;
-        results[index] = result;
-        count++;
-        if (complete()) resolve(results);
+        if (failures.length > ignore) return
+        results[index] = result
+        count++
+        if (complete()) resolve(results)
       }
       function error(err) {
-        if (failures.length > ignore) return;
-        results[index] = undefined;
-        failures.add(err);
+        if (failures.length > ignore) return
+        results[index] = undefined
+        failures.add(err)
         if (failures.length > ignore) {
-          reject(failures);
+          reject(failures)
         } else if (complete()) {
-          resolve(results);
+          resolve(results)
         }
       }
-    });
-  });
+    })
+  })
 }
 
 /**
@@ -331,16 +331,16 @@ async function list(list, ignore = 0) {
  */
 
 async function object(container, ignore = 0) {
-  const containsPromise = key => typeof container[key].then === 'function';
-  const keys = Object.keys(container).filter(containsPromise);
-  const promises = keys.map(key => container[key]);
-  const results = await list(promises, ignore);
-  const obj = Object.assign({}, container);
+  const containsPromise = key => typeof container[key].then === 'function'
+  const keys = Object.keys(container).filter(containsPromise)
+  const promises = keys.map(key => container[key])
+  const results = await list(promises, ignore)
+  const obj = Object.assign({}, container)
   results.forEach((result, index) => {
-    const key = keys[index];
-    obj[key] = result;
-  });
-  return obj;
+    const key = keys[index]
+    obj[key] = result
+  })
+  return obj
 }
 
 /**
@@ -360,37 +360,37 @@ async function object(container, ignore = 0) {
  */
 async function map(list, concurrency, fn) {
   return new Promise((resolve, reject) => {
-    const results = [];
-    let running = 0;
-    let index = 0;
+    const results = []
+    let running = 0
+    let index = 0
 
-    update();
+    update()
 
     function update() {
       if (index === list.length && running === 0) {
-        return resolve(results);
+        return resolve(results)
       }
       while (running < concurrency && index < list.length) {
         fn(list[index])
           .then(success(index))
-          .catch(error);
-        index++;
-        running++;
+          .catch(error)
+        index++
+        running++
       }
     }
     function success(i) {
       return result => {
-        running--;
-        results[i] = result;
-        update();
-      };
+        running--
+        results[i] = result
+        update()
+      }
     }
     function error(err) {
-      running--;
-      index = Infinity;
-      reject(err);
+      running--
+      index = Infinity
+      reject(err)
     }
-  });
+  })
 }
 
 /**
@@ -410,7 +410,7 @@ async function failure(promise) {
   return Promise.resolve()
     .then(() => promise)
     .then(() => undefined)
-    .catch(err => err);
+    .catch(err => err)
 }
 
 /**
@@ -445,7 +445,7 @@ async function success(promise) {
 async function result(promise) {
   return Promise.resolve()
     .then(() => promise)
-    .catch(err => err);
+    .catch(err => err)
 }
 
 /**
@@ -472,9 +472,9 @@ async function result(promise) {
  * // =>    at Object.<anonymous> (/Users/hloftis/code/awaiting/test/fixtures/rejection-throw.js:4:1)
  */
 function throwRejections() {
-  process.removeListener('unhandledRejection', throwOnRejection);
-  process.removeListener('unhandledRejection', swallowOnRejection);
-  process.on('unhandledRejection', throwOnRejection);
+  process.removeListener('unhandledRejection', throwOnRejection)
+  process.removeListener('unhandledRejection', swallowOnRejection)
+  process.on('unhandledRejection', throwOnRejection)
 }
 
 /**
@@ -500,7 +500,7 @@ function throwRejections() {
  * // (no output)
  */
 function swallowRejections() {
-  process.removeListener('unhandledRejection', throwOnRejection);
-  process.removeListener('unhandledRejection', swallowOnRejection);
-  process.on('unhandledRejection', swallowOnRejection);
+  process.removeListener('unhandledRejection', throwOnRejection)
+  process.removeListener('unhandledRejection', swallowOnRejection)
+  process.on('unhandledRejection', swallowOnRejection)
 }

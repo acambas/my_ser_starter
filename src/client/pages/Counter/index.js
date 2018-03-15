@@ -1,10 +1,10 @@
-import React from 'react';
-import Counter from './counter';
+import React from 'react'
+import Counter from './counter'
 
 const CounterPage = () => (
   <div>
     <Counter />
   </div>
-);
+)
 
-export default CounterPage;
+export default CounterPage

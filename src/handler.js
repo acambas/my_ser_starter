@@ -1,5 +1,5 @@
-const awsServerlessExpress = require('aws-serverless-express');
-const app = require('./server');
+const awsServerlessExpress = require('aws-serverless-express')
+const app = require('./server')
 
 const binaryMimeTypes = [
   'application/javascript',
@@ -17,12 +17,12 @@ const binaryMimeTypes = [
   'text/plain',
   'text/text',
   'text/xml',
-];
+]
 
-const server = awsServerlessExpress.createServer(app, null, binaryMimeTypes);
+const server = awsServerlessExpress.createServer(app, null, binaryMimeTypes)
 const express = (event, context) =>
-  awsServerlessExpress.proxy(server, event, context);
+  awsServerlessExpress.proxy(server, event, context)
 
 module.exports = {
   express,
-};
+}

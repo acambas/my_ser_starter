@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import CounterPage from '../Counter';
-import HomePage from '../Home';
-import Ajax from '../Ajax';
-import NoMatch from '../NoMatch';
+import React from 'react'
+import { Link, Route, Switch } from 'react-router-dom'
+import CounterPage from '../Counter'
+import HomePage from '../Home'
+import Ajax from '../Ajax'
+import NoMatch from '../NoMatch'
 
 const Layout = () => (
   <div>
@@ -25,6 +25,6 @@ const Layout = () => (
       <Route component={NoMatch} />
     </Switch>
   </div>
-);
+)
 
-export default Layout;
+export default Layout

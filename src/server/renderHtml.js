@@ -2,7 +2,7 @@ export default (
   url,
   context,
   styleUrl = 'assets/styles.css',
-  jsUrl = 'assets/bundle.js'
+  jsUrl = 'assets/bundle.js',
 ) => {
   const indexHtml = `<!DOCTYPE html>
   <html>
@@ -16,6 +16,6 @@ export default (
       </div>
     </body>
     <script type="text/javascript" src="${jsUrl}"></script>
-  </html>`;
-  return indexHtml;
-};
+  </html>`
+  return indexHtml
+}

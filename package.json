@@ -10,7 +10,7 @@
     "build:client": "webpack --config config/webpack.config.prod.js -p",
     "build": "npm run build:server && npm run build:client",
     "test": "jest src",
-    "lint": "eslint src",
+    "lint": "eslint src --fix",
     "serve-prod": "npm run build&&sls offline",
     "package": "sls package",
     "deploy": "sls deploy"

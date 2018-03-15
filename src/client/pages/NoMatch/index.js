@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const comp = () => {
-  return <div>Not Fount</div>;
-};
+  return <div>Not Fount</div>
+}
 
-export default comp;
+export default comp
