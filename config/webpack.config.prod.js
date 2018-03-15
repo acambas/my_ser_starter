@@ -15,7 +15,6 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        // This has effect on the react lib size
         NODE_ENV: JSON.stringify('production'),
       },
     }),
@@ -23,27 +22,12 @@ module.exports = {
       filename: 'styles.css',
       allChunks: true,
     }),
-    // new HtmlWebpackPlugin({
-    //   title: 'My App',
-    //   filename: '../index.html',
-    //   hash: true,
-    //   template: path.join(__dirname, '../', 'src/server/views/index.ejs'),
-    // }),
   ],
-  resolve: {
-    alias: {
-      // react: 'preact-compat',
-      // 'react-dom': 'preact-compat',
-      // Not necessary unless you consume a module using `createClass`
-      // 'create-react-class': 'preact-compat/lib/create-react-class',
-    },
-  },
   module: {
     rules: [
       {
         test: /\.js$/,
         use: 'babel-loader',
-        // include: path.join(__dirname, 'client'),
         exclude: /node_modules/,
       },
       {

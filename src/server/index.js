@@ -15,6 +15,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+if (process.env.NODE_ENV === 'development') {
+  addWebpackMiddleware(app);
+} else {
+  app.use('/', express.static(path.join(__dirname, '../../public')));
+}
 app.use(
   expressWinston.logger({
     transports: [
@@ -38,11 +44,6 @@ app.get('/api/test', async (req, res) => {
 
 //------------------set up page routes------------------------------------
 
-if (process.env.NODE_ENV === 'server') {
-  addWebpackMiddleware(app);
-} else {
-  app.use('/', express.static(path.join(__dirname, '../../public')));
-}
 app.get('*', (req, res) => {
   const context = {};
   const innerHtml = renderHtml(req.url, context);

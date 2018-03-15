@@ -34,11 +34,13 @@ functions:
           path: /
           method: get
 
-resources:
-  Resources:
-    ApiGatewayRestApi:
-          Type: AWS::ApiGateway::RestApi
-          Properties:
-            Name: ${opt:stage}-${self:service}
-            BinaryMediaTypes:
-              - "*~1*"
+
+custom:
+  apigwBinary:
+    types:
+      - "*/*"
+
+plugins:
+  - serverless-offline
+  - serverless-pseudo-parameters
+  - serverless-apigw-binary
