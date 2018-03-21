@@ -1,6 +1,6 @@
-const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const webpack = require('webpack');
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
@@ -34,7 +34,8 @@ module.exports = {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader',
+          publicPath: '/assets/',
+          use: ['css-loader'],
         }),
       },
       {
@@ -42,6 +43,7 @@ module.exports = {
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
+          publicPath: '/assets/',
           use: [
             {
               loader: 'css-loader',
@@ -66,4 +68,4 @@ module.exports = {
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' },
     ],
   },
-};
+}

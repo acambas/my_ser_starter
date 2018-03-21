@@ -4,14 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start1": "concurrently \"cross-env NODE_ENV=development npm run build:server -- --watch\" \"sls offline\"",
     "start": "cross-env NODE_ENV=development babel-node src/server",
+    
+    "lint": "eslint src",
+
+    "test:client": "NODE_ENV=test jest src/client --forceExit",
+    "test:server": "NODE_ENV=test jest src/server --forceExit",
+    "test:e2e": "NODE_ENV=test jest src/_e2e",
+    "test": "npm run test:server && npm run test:client && npm run test:e2e",
+
     "build:server": "babel --out-dir build --ignore __tests__ --copy-files src/",
     "build:client": "webpack --config config/webpack.config.prod.js -p",
     "build": "npm run build:server && npm run build:client",
-    "test": "jest src",
-    "lint": "eslint src --fix",
-    "serve-prod": "npm run build&&sls offline",
+    
+    "serve-prod": "sls offline",
+
     "package": "sls package",
     "deploy": "sls deploy"
   },
@@ -29,9 +36,9 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "css-loader": "^0.28.10",
+    "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
@@ -44,8 +51,9 @@
     "imports-loader": "^0.8.0",
     "jest": "^22.4.2",
     "jest-css-modules": "1.1.0",
-    "node-sass": "^4.8.2",
+    "node-sass": "^4.8.3",
     "prettier": "^1.11.1",
+    "puppeteer": "^1.2.0",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.2.0",
     "redbox-react": "1.5.0",
@@ -56,6 +64,7 @@
     "serverless-pseudo-parameters": "^1.4.2",
     "strip-loader": "0.1.2",
     "style-loader": "^0.20.3",
+    "supertest": "^3.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^3.11.0",
     "webpack-dev-middleware": "^1.12.2",

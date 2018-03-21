@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './style.scss'
+import style from './style.module.scss'
 import webpackImageUrl from './img/webpack.png'
 
 class component extends React.Component {

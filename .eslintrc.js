@@ -27,6 +27,7 @@ module.exports = {
     browser: true,
     node: true
   },
+  globals: {"Promise": true},
   plugins: ["react", "prettier"],
   extends: [
     "eslint:recommended",

@@ -4,10 +4,11 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import winston from 'winston'
 import expressWinston from 'express-winston'
+import compression from 'compression'
 import addWebpackMiddleware from './utils/webpackRoutes'
 import renderHtml from './renderHtml'
-import { delay } from '../utils/awaiting'
-import compression from 'compression'
+import { NODE_ENV } from './config'
+import apis from './HttpApis'
 
 const app = express()
 
@@ -15,31 +16,31 @@ const app = express()
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-if (process.env.NODE_ENV === 'development') {
+if (NODE_ENV === 'development') {
   addWebpackMiddleware(app)
 } else {
   app.use('/', express.static(path.join(__dirname, '../../public')))
 }
-app.use(
-  expressWinston.logger({
-    transports: [
-      new winston.transports.Console({
-        json: true,
-        colorize: true,
-      }),
-    ],
-    meta: true,
-    msg: 'HTTP {{req.method}} {{req.url}}',
-    expressFormat: true,
-    colorize: true,
-  }),
-)
+if (NODE_ENV !== 'test') {
+  app.use(
+    expressWinston.logger({
+      transports: [
+        new winston.transports.Console({
+          json: true,
+          colorize: true,
+        }),
+      ],
+      meta: true,
+      msg: 'HTTP {{req.method}} {{req.url}}',
+      expressFormat: true,
+      colorize: true,
+    }),
+  )
+}
+
 //------------------set up api routes------------------------------------
 
-app.get('/api/test', async (req, res) => {
-  await delay(100)
-  res.json({ value: 'ok' })
-})
+app.use('/api', apis)
 
 //------------------set up page routes------------------------------------
 
