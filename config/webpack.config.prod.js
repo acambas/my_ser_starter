@@ -1,6 +1,7 @@
-const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+var Visualizer = require('webpack-visualizer-plugin')
 
 module.exports = {
   entry: {
@@ -11,16 +12,14 @@ module.exports = {
     publicPath: 'assets/',
     filename: '[name].js',
   },
-  devtool: 'source-map',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    new ExtractTextPlugin({
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new MiniCssExtractPlugin({
       filename: 'styles.css',
-      allChunks: true,
+      chunkFilename: '[id].css',
+    }),
+    new Visualizer({
+      filename: './statistics.html',
     }),
   ],
   module: {
@@ -31,38 +30,36 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          publicPath: '/assets/',
-          use: ['css-loader'],
-        }),
+        test: /^((?!\.module).)*s?css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.scss$/,
+        test: /module\.s?css$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          publicPath: '/assets/',
-          use: [
-            {
-              loader: 'css-loader',
-              query: {
-                modules: true,
-                sourceMap: true,
-                importLoaders: 2,
-                localIdentName: '[path]-[name]-[local]',
-              },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            query: {
+              publicPath: '',
             },
-            'sass-loader',
-          ],
-        }),
+          },
+          {
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 2,
+              localIdentName: '[path]-[name]-[local]',
+            },
+          },
+          'sass-loader',
+        ],
       },
       {
         test: /\.(png|jpg|ttf|woff2|svg|woff)/,
         loader: 'url-loader',
         options: {
-          limit: 1000,
+          limit: 50,
         },
       },
       { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, use: 'file-loader' },

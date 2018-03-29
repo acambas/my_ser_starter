@@ -23,6 +23,7 @@ package:
     - src/**
     - .config/**
     -  config/**
+    - public/assets/statistics.html
   # excludeDevDependencies: false
 
 functions:

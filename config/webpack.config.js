@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
   entry: {
     bundle: [
       'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
@@ -17,13 +17,10 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin({
-      filename: 'styles.css',
-      allChunks: true,
-    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
