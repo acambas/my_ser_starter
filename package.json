@@ -11,7 +11,7 @@
     "test:e2e": "NODE_ENV=test jest src/_e2e",
     "test": "npm run test:server && npm run test:client && npm run test:e2e",
     "build:server": "babel --out-dir build --ignore __tests__ --copy-files src/",
-    "build:client": "webpack --config config/webpack.config.prod.js -p",
+    "build:client": "webpack --config config/webpack.config.prod.js -p --mode production",
     "build": "npm run build:server && npm run build:client",
     "serve-prod": "sls offline",
     "package": "sls package",
@@ -80,6 +80,7 @@
     "express-winston": "^2.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0",
     "react-router-dom": "^4.1.1",
     "winston": "^2.4.1"
   },

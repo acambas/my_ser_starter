@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './style.module.scss'
 import webpackImageUrl from './img/webpack.png'
-
+import { hot } from 'react-hot-loader'
 class component extends React.Component {
   constructor(props) {
     super(props)
@@ -35,4 +35,4 @@ class component extends React.Component {
 component.defaultProps = {
   increment: 123,
 }
-export default component
+export default hot(module)(component)

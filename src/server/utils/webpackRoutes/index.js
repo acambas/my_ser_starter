@@ -5,10 +5,8 @@ export default app => {
   const compiler = webpack(webpackConfig)
   app.use(
     require('webpack-dev-middleware')(compiler, {
-      // publicPath: webpackConfig.output.publicPath,
+      publicPath: webpackConfig.output.publicPath,
       hot: true,
-      filename: 'bundle.js',
-      publicPath: '/assets/',
       stats: {
         colors: true,
         chunks: false,

@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/public/assets'),
-    publicPath: 'assets/',
+    publicPath: '/assets/',
     filename: '[name].js',
   },
   devtool: 'cheap-module-eval-source-map',
@@ -25,8 +25,9 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
-          presets: ['react-hmre'],
+        options: {
+          cacheDirectory: true,
+          plugins: ['react-hot-loader/babel'],
         },
       },
       {
