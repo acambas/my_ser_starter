@@ -10,3 +10,4 @@ stuff
 yarn-error.log
 build
 stuff.js
+/coverage
