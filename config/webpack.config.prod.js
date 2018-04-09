@@ -12,6 +12,7 @@ module.exports = {
     publicPath: 'assets/',
     filename: '[name].js',
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new MiniCssExtractPlugin({
