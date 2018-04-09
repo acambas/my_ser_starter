@@ -5,14 +5,13 @@
       {
         "targets": {
           "browsers": [
-            "last 2 versions"
+            "last 2 Chrome versions"
           ],
-          "node": "6.10"
+          "node": "8.10"
         }
       }
     ],
-    "react",
-    "stage-0"
+    "react"
   ],
   "plugins": [
     "transform-runtime"

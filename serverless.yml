@@ -2,7 +2,7 @@ service: my-ser-starter # NOTE: update this with your service name
 
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   versionFunctions: false
 
 # you can overwrite defaults here
