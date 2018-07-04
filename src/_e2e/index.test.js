@@ -7,7 +7,7 @@ import { closeServer, startServer } from './utils/server'
 
 jest.mock('../server/HttpApis/testApi/mockDataFetch')
 
-test.concurrent('test /api/test endpoint', async () => {
+test('test /api/test endpoint', async () => {
   mockDataFetch.mockReturnValueOnce(Promise.resolve({ sasa: 'sasa' }))
   const response = await request(app).get('/api/test')
   expect(response.body).toEqual({ sasa: 'sasa' })
@@ -23,7 +23,7 @@ afterAll(async () => {
   await closeServer(server)
 })
 
-test.concurrent(
+test(
   'test loading ajax page',
   async () => {
     mockDataFetch.mockReturnValueOnce(Promise.resolve({ sasa: 'sasa' }))
