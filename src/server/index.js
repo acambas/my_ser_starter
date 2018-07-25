@@ -21,22 +21,6 @@ if (NODE_ENV === 'development') {
 } else {
   app.use('/', express.static(path.join(__dirname, '../../public')))
 }
-if (NODE_ENV !== 'test') {
-  app.use(
-    expressWinston.logger({
-      transports: [
-        new winston.transports.Console({
-          json: true,
-          colorize: true,
-        }),
-      ],
-      meta: true,
-      msg: 'HTTP {{req.method}} {{req.url}}',
-      expressFormat: true,
-      colorize: true,
-    }),
-  )
-}
 
 //------------------set up api routes------------------------------------
 
