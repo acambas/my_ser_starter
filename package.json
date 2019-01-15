@@ -51,7 +51,7 @@
     "sass-loader": "^7.0.3",
     "serverless": "^1.28.0",
     "serverless-apigw-binary": "^0.4.4",
-    "serverless-offline": "^3.25.6",
+    "serverless-offline": "^4.0.0",
     "serverless-pseudo-parameters": "^1.6.0",
     "style-loader": "^0.21.0",
     "supertest": "^3.1.0",
