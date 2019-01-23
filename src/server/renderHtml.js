@@ -7,7 +7,6 @@ export default (
   const indexHtml = `<!DOCTYPE html>
   <html>
     <head>
-      <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
       <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
       <title>react starter</title>
       <link href="${styleUrl}" rel="stylesheet" type="text/css" />
