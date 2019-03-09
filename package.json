@@ -56,7 +56,7 @@
     "serverless-offline": "^4.2.0",
     "serverless-pseudo-parameters": "^2.4.0",
     "style-loader": "^0.23.1",
-    "supertest": "^3.1.0",
+    "supertest": "^4.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0",
