@@ -50,7 +50,7 @@
     "prettier": "^1.13.7",
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.4.1",
-    "sass-loader": "^7.0.3",
+    "sass-loader": "^8.0.0",
     "serverless": "^1.28.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-offline": "^4.2.0",
