@@ -77,7 +77,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.4",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.1.0",
     "winston": "^3.0.0"
   },
   "jest": {
