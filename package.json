@@ -55,7 +55,7 @@
     "serverless-apigw-binary": "^0.4.4",
     "serverless-offline": "^4.2.0",
     "serverless-pseudo-parameters": "^2.4.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.2.0",
     "supertest": "^3.1.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.2",
